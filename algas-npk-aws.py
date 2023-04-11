@@ -1,7 +1,6 @@
 # imports necessários
 import datetime
 from sys import getsizeof
-import matplotlib.pyplot as plt
 import random
 import mysql.connector
 
