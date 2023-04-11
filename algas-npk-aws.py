@@ -16,7 +16,7 @@ def gerar_dados(min, max, step, nivel_fertilidade):
 
     conexao = mysql.connector.connect(
     host= "localhost",
-    user= "solo_fertil",
+    user= "root",
     password= "urubu100",
     database= "soy_fertility"
     )
