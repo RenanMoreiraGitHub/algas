@@ -63,7 +63,7 @@ def gerar_dados(min, max, step, nivel_fertilidade):
         dados_p.sort();
         dados_k.sort();
 
-        mem = getsizeof(dados_n + dados_p + dados_k) * 1024;
+        mem = (getsizeof(dados_n + dados_p + dados_k) /  (1024 * 1024));
         dados_mem.append(mem);
         final_tempo = datetime.datetime.now();
         dado_tempo = (final_tempo - inicio_tempo).total_seconds();
@@ -96,19 +96,19 @@ while True:
     if resposta == 0:
         break
 
-    print("\n Agora digite o valor inicial do intervalo: ")
-    intervalo_inicial = int(input("Valor inicial: "))
+    # print("\n Agora digite o valor inicial do intervalo: ")
+    # intervalo_inicial = int(input("Valor inicial: "))
 
-    print("\n Agora digite o valor final do intervalo: ")
-    intervalo_final = int(input("Valor final: "))
+    print("\n Digite a o valor da entrada de dados: ")
+    intervalo_final = int(input("Entrada: "))
 
     if resposta == 1:
-        gerar_dados(intervalo_inicial, intervalo_final, 1, 1);
+        gerar_dados(1, intervalo_final, 1, 1);
     elif resposta == 2:
-        gerar_dados(intervalo_inicial, intervalo_final, 1, 2);
+        gerar_dados(1, intervalo_final, 1, 2);
     elif resposta == 3:
-        gerar_dados(intervalo_inicial, intervalo_final, 1, 3);
+        gerar_dados(1, intervalo_final, 1, 3);
     elif resposta == 4:
-        gerar_dados(intervalo_inicial, intervalo_final, 1, 4);
+        gerar_dados(1, intervalo_final, 1, 4);
     else:
         print("Opção inválida. Escolha uma opção correta!")
