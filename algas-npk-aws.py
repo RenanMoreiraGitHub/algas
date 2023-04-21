@@ -15,7 +15,7 @@ dados_tempo = [];
 def gerar_dados(min, max, step, nivel_fertilidade):
 
     conexao = mysql.connector.connect(
-    host= "localhost",
+    host= "35.171.54.199",
     port= 3306,
     user= "root",
     password= "urubu100",
