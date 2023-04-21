@@ -15,7 +15,7 @@ dados_tempo = [];
 def gerar_dados(min, max, step, nivel_fertilidade):
 
     conexao = mysql.connector.connect(
-    host= "54.237.157.141",
+    host= "localhost",
     port= 3306,
     user= "root",
     password= "urubu100",
@@ -28,6 +28,7 @@ def gerar_dados(min, max, step, nivel_fertilidade):
     
     # Cria o cursor
     cursor = conexao.cursor();
+    inicio_latencia = datetime.datetime.now();
 
     mem = 0;
     for dado in range(min, max+1, step):
@@ -69,15 +70,28 @@ def gerar_dados(min, max, step, nivel_fertilidade):
         dado_tempo = (final_tempo - inicio_tempo).total_seconds();
         dados_tempo.append(dado_tempo);
 
-        sql = "INSERT INTO solo_fertil values(null, %s, %s, %s, %s, %s, %s);"
+        regiao = "local" # mudar de acordo com a regiao da maquina;
 
-        values = (dado_n, dado_p, dado_k, nivel_fertil, dado_tempo, mem);
+        sql = "INSERT INTO solo_fertil values(null, %s, %s, %s, %s, %s, %s, null, %s);"
+
+        values = (dado_n, dado_p, dado_k, nivel_fertil, dado_tempo, mem, regiao);
 
         cursor.execute(sql, values);
 
-        print(f'Inserção realizada: Nitrogênio: {dado_n} Fósforo: {dado_p} Potássio: {dado_k} Nível de fertilidade: {nivel_fertil} Tempo gasto: {dado_tempo} Memória: {mem}')
-        
         conexao.commit();
+
+        final_latencia = datetime.datetime.now();
+        dado_latencia = (final_latencia - inicio_latencia).total_seconds() * 1000;
+
+        sql_update_latencia = "UPDATE solo_fertil set latencia = %s WHERE nitrogenio = %s and fosforo = %s and potassio = %s;"
+
+        values_latencia = (dado_latencia, dado_n, dado_p, dado_k);
+
+        cursor.execute(sql_update_latencia, values_latencia);
+
+        print(f'Inserção realizada: Nitrogênio: {dado_n} Fósforo: {dado_p} Potássio: {dado_k} Nível de fertilidade: {nivel_fertil} Tempo gasto: {dado_tempo} Memória: {mem} Latência: {dado_latencia} Região: {regiao}')
+        
+        conexao.commit(); 
 
 
     cursor.close();
