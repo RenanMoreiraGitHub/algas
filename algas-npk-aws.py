@@ -28,7 +28,6 @@ def gerar_dados(min, max, step, nivel_fertilidade):
     
     # Cria o cursor
     cursor = conexao.cursor();
-    inicio_latencia = datetime.datetime.now();
 
     mem = 0;
     for dado in range(min, max+1, step):
@@ -76,6 +75,8 @@ def gerar_dados(min, max, step, nivel_fertilidade):
 
         values = (dado_n, dado_p, dado_k, nivel_fertil, dado_tempo, mem, regiao);
 
+        inicio_latencia = datetime.datetime.now();
+        
         cursor.execute(sql, values);
 
         conexao.commit();
